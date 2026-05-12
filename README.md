@@ -29,6 +29,18 @@ When making a request to OpenAI's Chat Completions API, you can pass several par
 * **`response_format`** (object): Specifies the format that the model must output (e.g., `{ "type": "json_object" }` to guarantee JSON output).
 * **`seed`** (integer): If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result.
 * **`n`** (integer): How many chat completion choices to generate for each input message. (Note: Because this can quickly increase your API costs, it's recommended to keep it at 1).
+* **`store`** (boolean): If `true`, the chat completion will be stored for use in OpenAI's dashboard, allowing you to view and evaluate the interaction later.
+* **`metadata`** (object): An optional JSON object of key-value pairs that you can attach to the completion. This is very helpful for categorizing and filtering logs in your dashboard when `store` is set to `true`.
+
+## Understanding Token Usage
+
+When you make a request to the OpenAI API, the cost and rate limits are calculated based on "tokens" (which are pieces of words). The API response includes a `usage` object that breaks down token consumption:
+
+* **Input Tokens (`prompt_tokens`)**: The number of tokens in the messages you sent to the API. This includes the system instructions, user messages, and any previous assistant messages in the array.
+* **Cached Tokens (`prompt_tokens_details.cached_tokens`)**: A subset of your input tokens that were previously processed and cached by OpenAI's servers (Prompt Caching). These are significantly cheaper and faster to process than standard input tokens.
+* **Output Tokens (`completion_tokens`)**: The number of tokens the model generated in its final visible response. 
+* **Reasoning Tokens (`completion_tokens_details.reasoning_tokens`)**: A subset of the output tokens generated specifically by reasoning models (like `o1` or `o3-mini`). These tokens represent the model's internal "thought process" before it produces the final output. They count towards your token limits and costs but are hidden from the final message content.
+* **Total Tokens (`total_tokens`)**: The sum of all input tokens (including cached ones) and output tokens (including reasoning ones) used in the request. This determines the total volume of computation for the single API call.
 
 ## Correcting `index.js`
 
