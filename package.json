@@ -1,0 +1,24 @@
+{
+  "name": "genai-node",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/pradiptapaul97/GENAI-NODE#readme",
+  "bugs": {
+    "url": "https://github.com/pradiptapaul97/GENAI-NODE/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pradiptapaul97/GENAI-NODE.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "openai": "^6.37.0"
+  }
+}
