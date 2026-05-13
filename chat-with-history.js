@@ -8,10 +8,7 @@ const openAiContext = [{
     content: 'keep answer short and simple'
 }];
 
-const genAIContext = [{
-    role: 'user',
-    parts: [{ text: 'keep answer short and simple' }]
-}];
+const genAIContext = [];
 
 async function openAIAnswerWithHistory(data) {
 
@@ -39,7 +36,7 @@ async function openAIAnswerWithHistory(data) {
 
 async function googleGenAIAnswerrWithHistory(data) {
     try {
-        const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+        const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GEN_AI_API_KEY || '' });
 
         genAIContext.push({
             role: 'user',
@@ -47,7 +44,10 @@ async function googleGenAIAnswerrWithHistory(data) {
         })
 
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-pro',
+            model: 'gemini-3-flash-preview',
+            config: {
+                systemInstruction: "keep answer short and simple."
+            },
             contents: genAIContext
         });
 
